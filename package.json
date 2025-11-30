@@ -1,0 +1,19 @@
+{
+  "name": "email-survey-app",
+  "version": "1.0.0",
+  "description": "App to serve email surveys to customers",
+  "license": "MIT",
+  "author": "Mateo Vargas",
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": "22.13.0",
+    "npm": "11.5.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
