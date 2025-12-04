@@ -11,6 +11,7 @@ import passportService from './services/passport.js';
 passportService();
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(
     cookieSession({
