@@ -13,5 +13,5 @@ if (process.env.NODE_ENV === 'production') {
     cookieKey = mod.cookieKey;
     mongoURI = mod.mongoURI;
 }
-console.log({ googleAuthClient, cookieKey, mongoURI });
+
 export { googleAuthClient, cookieKey, mongoURI };
