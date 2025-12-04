@@ -11,13 +11,11 @@ const authRoutes = (app) => {
     });
 
     app.get('/api/current_user', (req, res) => {
-        console.log(req.user);
         res.send(req.user || 'no user');
     });
 
     app.get('/api/logout', (req, res) => {
         req.logout(() => {
-            console.log(req.user);
             res.send(req.user);
         });
     });
