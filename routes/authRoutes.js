@@ -14,6 +14,13 @@ const authRoutes = (app) => {
         console.log(req.user);
         res.send(req.user || 'no user');
     });
+
+    app.get('/api/logout', (req, res) => {
+        req.logout(() => {
+            console.log(req.user);
+            res.send(req.user);
+        });
+    });
 }
 
 export default authRoutes;

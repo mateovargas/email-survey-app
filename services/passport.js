@@ -8,7 +8,7 @@ const passportService = () => {
     passport.use(new GoogleStrategy({
         clientID: googleAuthClient.clientID,
         clientSecret: googleAuthClient.clientSecret,
-        callbackURL: 'http://localhost:1000/auth/google/callback'
+        callbackURL: '/auth/google/callback'
     }, async (accessToken, refreshToken, profile, done) => {
         const existingUser = await User.findOne({
             googleID: profile.id

@@ -1,10 +1,9 @@
 import express from 'express';
-import mongoose, { connect } from 'mongoose';
-import colors from 'colors';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 
 import { cookieKey, mongoURI } from './config/keys.js'
+import connectDB from './database/db.js';
 import authRoutes from './routes/authRoutes.js'
 import passportService from './services/passport.js';
 
@@ -38,11 +37,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 authRoutes(app);
-
-const connectDB = async () => {
-    const conn = await mongoose.connect(mongoURI.URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`.red.underline.bold);
-};
 
 connectDB();
 
