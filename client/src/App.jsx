@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import { fetchUser } from './actions/index';
 import Header from './components/Header';
+import Landing from './components/Landing';
 
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
-const Landing = () => <h2>Landing</h2>;
 
 
 const App = ({ fetchUser }) => {

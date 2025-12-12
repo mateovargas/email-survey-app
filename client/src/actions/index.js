@@ -1,15 +1,9 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { setAuth } from '../reducers/authSlice';
 
 const fetchUser = () => async dispatch => {
-    console.log("Thunk started");
     const res = await axios.get('/api/current_user');
-    console.log("API response:", res.data);
-    dispatch({
-        type: FETCH_USER,
-        payload: res.data || false
-    });
-    console.log("Thunk finished");
+    dispatch(setAuth(res.data || false));
 }
 
 export {

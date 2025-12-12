@@ -7,7 +7,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setAuth(state, action) {
-            return action.payload;
+            return action.payload || false;
         },
         clearAuth() {
             return null;
