@@ -1,38 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { fetchUser } from './actions/index';
+import Header from './components/Header';
+
+const Dashboard = () => <h2>Dashboard</h2>;
+const SurveyNew = () => <h2>SurveyNew</h2>;
+const Landing = () => <h2>Landing</h2>;
+
+
+const App = ({ fetchUser }) => {
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <a href='/auth/google' target="_blank">
-        Click here to log in with Google
-      </a>
-    </>
-  )
-}
+    <div className="container">
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<Landing />} />
+          <Route path='/surveys' element={<Dashboard />} />
+          <Route path='/surveys/new' element={<SurveyNew />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
 
-export default App
+export default connect(null, { fetchUser })(App);
