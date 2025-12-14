@@ -7,7 +7,6 @@ const authRoutes = (app) => {
     }));
 
     app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
-        //res.redirect('/api/current_user');
         // After successful Google login, send user back to the client app
         if (process.env.NODE_ENV === 'production') {
             // In production, your client is served by the same origin as the server

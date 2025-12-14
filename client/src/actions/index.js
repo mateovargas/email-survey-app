@@ -6,6 +6,12 @@ const fetchUser = () => async dispatch => {
     dispatch(setAuth(res.data || false));
 }
 
+const handleToken = (token) => async dispatch => {
+    const res = await axios.post('/api/stripe', token);
+    dispatch(setAuth(res.data));
+}
+
 export {
-    fetchUser
+    fetchUser,
+    handleToken
 }

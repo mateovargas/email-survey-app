@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Payments from './Payments';
+
 const Header = ({ auth }) => {
     const renderContent = () => {
         switch (auth) {
@@ -14,9 +16,14 @@ const Header = ({ auth }) => {
                 );
             default:
                 return (
-                    <li>
-                        <a href="/api/logout">Logout</a>
-                    </li>
+                    <>
+                        <li key='payments'>
+                            <Payments />
+                        </li>
+                        <li key='logout'>
+                            <a href="/api/logout">Logout</a>
+                        </li>
+                    </>
                 );
         }
     };

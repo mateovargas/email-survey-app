@@ -1,10 +1,12 @@
-import express from 'express';
+import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
+import express from 'express';
 import passport from 'passport';
 
-import { cookieKey, mongoURI } from './config/keys.js'
-import connectDB from './database/db.js';
 import authRoutes from './routes/authRoutes.js'
+import billingRoutes from './routes/billingRoutes.js'
+import connectDB from './database/db.js';
+import { cookieKey } from './config/keys.js'
 import passportService from './services/passport.js';
 
 
@@ -13,6 +15,7 @@ passportService();
 const app = express();
 app.set('trust proxy', 1);
 
+app.use(bodyParser.json());
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
