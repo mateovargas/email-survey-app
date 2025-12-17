@@ -20,6 +20,9 @@ const Header = ({ auth }) => {
                         <li key='payments'>
                             <Payments />
                         </li>
+                        <li key='credits' style={{ margin: '0 10px' }}>
+                            Credits: {auth.credits}
+                        </li>
                         <li key='logout'>
                             <a href="/api/logout">Logout</a>
                         </li>
