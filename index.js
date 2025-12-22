@@ -3,6 +3,7 @@ import cookieSession from 'cookie-session';
 import express from 'express';
 import path from 'path';
 import passport from 'passport';
+import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/authRoutes.js'
 import billingRoutes from './routes/billingRoutes.js'
@@ -10,6 +11,8 @@ import connectDB from './database/db.js';
 import { cookieKey } from './config/keys.js'
 import passportService from './services/passport.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 passportService();
 
@@ -47,9 +50,9 @@ billingRoutes(app);
 connectDB();
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/dist'));
+    app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
 
-    app.get('*', (req, res) => {
+    app.get('/*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
     });
 }
