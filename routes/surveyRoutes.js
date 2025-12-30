@@ -1,9 +1,22 @@
+import mongoose from "mongoose"
+
+import requireCredits from "../middleware/requireCredits.js"
 import requireLogin from "../middleware/requireLogin.js"
 
+const Survey = mongoose.model('surveys');
+const Recipient = mongoose.model('recipients');
+
 const surveyRoutes = (app) => {
-    app.post('/api/surveys', requireLogin, (req, res) => {
-        // Handle GET request to retrieve surveys
-        // Example: Fetch surveys from the database and return them in the response
-        res.json({ message: 'GET request to retrieve surveys' });
-    })
+    app.post('/api/surveys', requireLogin, requireCredits, (req, res) => {
+        const { title, subject, body, recipients } = req.body;
+
+        const survey = new Survey({
+            title,
+            subject,
+            body,
+            recipients: recipients.split(',').map(email => ({ email: email.trim() })),
+            _user: req.user.id,
+            dateSent: Date.now()
+        });
+    });
 }
