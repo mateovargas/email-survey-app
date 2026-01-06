@@ -2,6 +2,8 @@ import mongoose from "mongoose"
 
 import requireCredits from "../middleware/requireCredits.js"
 import requireLogin from "../middleware/requireLogin.js"
+import mailerService from "../services/mailerService.js"
+import surveyTemplate from "../services/emailTemplates/surveyTemplate.js"
 
 const Survey = mongoose.model('surveys');
 const Recipient = mongoose.model('recipients');
@@ -18,5 +20,8 @@ const surveyRoutes = (app) => {
             _user: req.user.id,
             dateSent: Date.now()
         });
+
+        //send the email here
+        mailerService(survey, surveyTemplate(survey));
     });
 }

@@ -9,7 +9,7 @@ import authRoutes from './routes/authRoutes.js'
 import billingRoutes from './routes/billingRoutes.js'
 import connectDB from './database/db.js';
 import { cookieKey } from './config/keys.js'
-import passportService from './services/passport.js';
+import passportService from './services/passportService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
