@@ -4,8 +4,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import axios from 'axios'; //temporary import to test email sending
-window.axios = axios; //temporary assignment to test email sending
 
 
 import App from './App'

@@ -32,7 +32,6 @@ const surveyRoutes = (app) => {
         } catch (err) {
             console.error("POST /api/surveys failed:", err?.response?.body || err);
 
-            // send something useful back to the browser
             res.status(500).send({
                 error: err.message,
                 sendgrid: err?.response?.body || null,
