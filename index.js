@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/authRoutes.js'
 import billingRoutes from './routes/billingRoutes.js'
+import surveyRoutes from './routes/surveyRoutes.js'
 import connectDB from './database/db.js';
 import { cookieKey } from './config/keys.js'
 import passportService from './services/passportService.js';
@@ -46,6 +47,7 @@ app.use(passport.session());
 
 authRoutes(app);
 billingRoutes(app);
+surveyRoutes(app);
 
 connectDB();
 

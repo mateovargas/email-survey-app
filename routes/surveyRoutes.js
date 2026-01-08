@@ -1,27 +1,44 @@
-import mongoose from "mongoose"
-
-import requireCredits from "../middleware/requireCredits.js"
-import requireLogin from "../middleware/requireLogin.js"
-import mailerService from "../services/mailerService.js"
-import surveyTemplate from "../services/emailTemplates/surveyTemplate.js"
-
-const Survey = mongoose.model('surveys');
-const Recipient = mongoose.model('recipients');
+import requireCredits from "../middleware/requireCredits.js";
+import requireLogin from "../middleware/requireLogin.js";
+import Survey from "../models/Survey.js";
+import createMailerService from "../services/mailerService.js";
+import surveyTemplate from "../services/emailTemplates/surveyTemplate.js";
 
 const surveyRoutes = (app) => {
-    app.post('/api/surveys', requireLogin, requireCredits, (req, res) => {
-        const { title, subject, body, recipients } = req.body;
+    app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
+        try {
+            const { title, subject, body, recipients } = req.body;
 
-        const survey = new Survey({
-            title,
-            subject,
-            body,
-            recipients: recipients.split(',').map(email => ({ email: email.trim() })),
-            _user: req.user.id,
-            dateSent: Date.now()
-        });
+            const survey = new Survey({
+                title,
+                subject,
+                body,
+                recipients: recipients.split(",").map((email) => ({ email: email.trim() })),
+                _user: req.user.id,
+                dateSent: Date.now(),
+            });
 
-        //send the email here
-        mailerService(survey, surveyTemplate(survey));
+            const mailer = createMailerService();
+
+            await mailer.sendEmail({
+                subject: survey.subject,
+                recipients: survey.recipients,
+                html: surveyTemplate(survey),
+            });
+
+            await survey.save();
+
+            res.status(200).send(survey);
+        } catch (err) {
+            console.error("POST /api/surveys failed:", err?.response?.body || err);
+
+            // send something useful back to the browser
+            res.status(500).send({
+                error: err.message,
+                sendgrid: err?.response?.body || null,
+            });
+        }
     });
-}
+};
+
+export default surveyRoutes;
