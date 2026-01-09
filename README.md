@@ -1,4 +1,4 @@
-#Email Survey App
+# Email Survey App
 Web App that sends out surveys via email and takes payments via Stripe.
 Built with MERN stack.
 
