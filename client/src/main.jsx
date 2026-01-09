@@ -5,6 +5,9 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
+//development only axios helpers
+import axios from 'axios';
+window.axios = axios;
 
 import App from './App'
 import reducers from './reducers/index';

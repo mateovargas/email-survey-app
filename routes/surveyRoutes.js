@@ -5,6 +5,10 @@ import createMailerService from "../services/mailerService.js";
 import surveyTemplate from "../services/emailTemplates/surveyTemplate.js";
 
 const surveyRoutes = (app) => {
+    app.get('/api/surveys/thanks', (req, res) => {
+        res.send('Thanks for voting!');
+    });
+
     app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
         try {
             const { title, subject, body, recipients } = req.body;
@@ -27,8 +31,9 @@ const surveyRoutes = (app) => {
             });
 
             await survey.save();
-
-            res.status(200).send(survey);
+            req.user.credits -= 1;
+            const user = await req.user.save();
+            res.status(200).send(user);
         } catch (err) {
             console.error("POST /api/surveys failed:", err?.response?.body || err);
 

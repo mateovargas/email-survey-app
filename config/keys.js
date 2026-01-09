@@ -1,6 +1,7 @@
 let cookieKey;
 let googleAuthClient;
 let mongoURI;
+let redirectDomain;
 let sendGridKey;
 let stripeKeys;
 
@@ -10,6 +11,7 @@ if (process.env.NODE_ENV === 'production') {
     cookieKey = mod.cookieKey;
     googleAuthClient = mod.googleAuthClient;
     mongoURI = mod.mongoURI;
+    redirectDomain = mod.redirectDomain;
     sendGridKey = mod.sendGridKey;
     stripeKeys = mod.stripeKeys;
 } else {
@@ -17,8 +19,9 @@ if (process.env.NODE_ENV === 'production') {
     googleAuthClient = mod.googleAuthClient;
     cookieKey = mod.cookieKey;
     mongoURI = mod.mongoURI;
+    redirectDomain = mod.redirectDomain;
     sendGridKey = mod.sendGridKey;
     stripeKeys = mod.stripeKeys;
 }
 
-export { cookieKey, googleAuthClient, mongoURI, sendGridKey, stripeKeys };
+export { cookieKey, googleAuthClient, mongoURI, redirectDomain, sendGridKey, stripeKeys };

@@ -11,6 +11,10 @@ const mongoURI = {
     URI: process.env.MONGO_URI
 }
 
+const redirectDomain = {
+    domain: process.env.REDIRECT_DOMAIN
+}
+
 const sendGridKey = {
     key: process.env.SENDGRID_API_KEY
 }
@@ -24,6 +28,7 @@ export {
     cookieKey,
     googleAuthClient,
     mongoURI,
+    redirectDomain,
     sendGridKey,
     stripeKeys
 }
