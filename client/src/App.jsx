@@ -5,10 +5,10 @@ import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 
 import { fetchUser } from './actions/index';
+import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Landing from './components/Landing';
 
-const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
