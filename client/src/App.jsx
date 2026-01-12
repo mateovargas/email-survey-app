@@ -8,8 +8,8 @@ import { fetchUser } from './actions/index';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Landing from './components/Landing';
+import SurveyNew from './components/surveys/SurveyNew';
 
-const SurveyNew = () => <h2>SurveyNew</h2>;
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const App = ({ fetchUser }) => {
