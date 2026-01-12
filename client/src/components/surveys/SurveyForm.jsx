@@ -1,13 +1,24 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { setAuth } from '../../reducers/authSlice';
-
-const surveyFormSchema = z.object({});
+import SurveyField from "./SurveyField";
 
 const SurveyForm = () => {
+
+    const onSubmit = () => {
+        console.log('submitted');
+    }
+
+    const renderFields = () => {
+        return (
+            <div>
+                <SurveyField />
+            </div>
+        )
+    }
+
     return (
-        <div>SurveyForm</div>
+        <form onSubmit={onSubmit}>
+            {renderFields()}
+            <button type="submit">Submit</button>
+        </form>
     )
 }
 
