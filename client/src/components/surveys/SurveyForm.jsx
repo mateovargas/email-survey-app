@@ -3,22 +3,19 @@ import { Link } from 'react-router-dom';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import SurveyField from "./SurveyField";
 import { FIELDS } from "./const";
+import SurveyField from "./SurveyField";
+import validateEmails from "../../utils/validateEmails";
+
+import './Surveys.css';
+
 
 
 const recipientsSchema = z
     .string()
     .min(1, "Recipient list is required")
     .refine((value) => {
-        const emails = value
-            .split(",")
-            .map((e) => e.trim())
-            .filter(Boolean);
-
-        if (emails.length === 0) return false;
-
-        return emails.every((email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+        return validateEmails(value);
     }, "Enter a comma separated list of valid emails");
 
 const surveySchema = z.object({
@@ -69,12 +66,12 @@ const SurveyForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {renderFields()}
-            <Link className="red btn-flat left white-text" to="/surveys">
+            <Link className="red btn-flat left white-text btn-pad" to="/surveys">
                 Cancel
                 <i className="material-icons right">close</i>
             </Link>
             <button
-                className="teal btn-flat right white-text"
+                className="teal btn-flat right white-text btn-pad"
                 disabled={isSubmitting}
                 type="submit"
             >
