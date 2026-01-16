@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Link } from 'react-router-dom';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -58,7 +59,7 @@ const SurveyForm = () => {
                         name={field.name}
                         register={register}
                         type='text'
-                        errors={errors[field.name]}
+                        error={errors[field.name]}
                     />
                 ))}
             </div>
@@ -68,7 +69,18 @@ const SurveyForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {renderFields()}
-            <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Submit"}</button>
+            <Link className="red btn-flat left white-text" to="/surveys">
+                Cancel
+                <i className="material-icons right">close</i>
+            </Link>
+            <button
+                className="teal btn-flat right white-text"
+                disabled={isSubmitting}
+                type="submit"
+            >
+                {isSubmitting ? "Submitting..." : "Submit"}
+                <i className="material-icons right">done</i>
+            </button>
         </form>
     )
 }
