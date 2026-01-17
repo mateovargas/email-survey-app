@@ -1,4 +1,5 @@
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,25 +26,28 @@ const surveySchema = z.object({
     recipients: recipientsSchema,
 });
 
-const SurveyForm = () => {
+const SurveyForm = ({ defaultValues, onPersist, onSurveySubmit }) => {
 
     const {
         register,
         handleSubmit,
+        control,
         formState: { errors, isSubmitting },
     } = useForm({
         resolver: zodResolver(surveySchema),
-        defaultValues: {
-            title: "",
-            subject: "",
-            body: "",
-            recipients: "",
-        },
+        defaultValues,
         mode: "onSubmit",
     });
 
+    const watchedValues = useWatch({ control });
+
+    useEffect(() => {
+        onPersist(watchedValues);
+    }, [watchedValues, onPersist]);
+
     const onSubmit = (data) => {
         console.log('submitted', data);
+        onSurveySubmit();
     }
 
     const renderFields = () => {
