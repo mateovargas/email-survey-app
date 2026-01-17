@@ -1,22 +1,50 @@
 import { redirectDomain } from '../../config/keys.js';
 
 const emailTemplate = (survey) => {
-    return `
+  return `
     <html>
       <body>
         <div style="text-align: center;">
           <h3>I'd like your input!</h3>
           <p>Please answer the following question:</p>
           <p>Subject: ${survey.body}</p>
-          <div>
-            <a href="${redirectDomain.domain}/api/surveys/thanks" style="margin: 20px; text-decoration: none; color: white; background-color: #28a745; padding: 10px 20px; border-radius: 5px;">Yes</a>
-          </div>
-          <div>
-            <a href="${redirectDomain.domain}/api/surveys/thanks" style="margin: 20px; text-decoration: none; color: white; background-color: #dc3545; padding: 10px 20px; border-radius: 5px;">No</a>
+
+          <div style="margin-top: 30px;">
+            <a
+              href="${redirectDomain.domain}/api/surveys/thanks"
+              style="
+                display: inline-block;
+                margin-right: 15px;
+                text-decoration: none;
+                color: white;
+                background-color: #28a745;
+                padding: 12px 24px;
+                border-radius: 5px;
+                font-weight: bold;
+              "
+            >
+              Yes
+            </a>
+
+            <a
+              href="${redirectDomain.domain}/api/surveys/thanks"
+              style="
+                display: inline-block;
+                text-decoration: none;
+                color: white;
+                background-color: #dc3545;
+                padding: 12px 24px;
+                border-radius: 5px;
+                font-weight: bold;
+              "
+            >
+              No
+            </a>
           </div>
         </div>
       </body>
-    </html>`;
-}
+    </html>
+  `;
+};
 
 export default emailTemplate;

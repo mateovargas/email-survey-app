@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FIELDS } from "./const";
+import { submitSurvey } from "../../actions";
 import SurveyField from "./SurveyField";
 import validateEmails from "../../utils/validateEmails";
 
@@ -26,7 +28,9 @@ const surveySchema = z.object({
     recipients: recipientsSchema,
 });
 
-const SurveyForm = ({ defaultValues, onPersist, onSurveySubmit }) => {
+const SurveyForm = ({ defaultValues, onPersist }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -45,9 +49,10 @@ const SurveyForm = ({ defaultValues, onPersist, onSurveySubmit }) => {
         onPersist(watchedValues);
     }, [watchedValues, onPersist]);
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log('submitted', data);
-        onSurveySubmit();
+        dispatch(submitSurvey(data));
+        navigate('/surveys');
     }
 
     const renderFields = () => {

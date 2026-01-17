@@ -11,10 +11,10 @@ const handleToken = ({ paymentIntentId }) => async (dispatch) => {
     dispatch(setAuth(res.data))
 }
 
-const submitSurvey = (values, navigate) => async (dispatch) => {
+const submitSurvey = (values) => async (dispatch) => {
     const res = await axios.post('/api/surveys', values);
     dispatch(setAuth(res.data));
-    navigate('/surveys');
+    return res;
 }
 
 export {

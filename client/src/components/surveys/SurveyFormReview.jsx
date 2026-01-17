@@ -18,7 +18,7 @@ const SurveyFormReview = ({ formValues, onCancel }) => {
 
     return (
         <div>
-            <h5>Please confirm your entries</h5>
+            <h5>Please review and confirm your entries</h5>
             <div>
                 {renderFields()}
             </div>

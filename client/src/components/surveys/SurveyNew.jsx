@@ -20,7 +20,6 @@ const SurveyNew = () => {
                 <SurveyForm
                     defaultValues={formData}
                     onPersist={(data) => setFormData(data)}
-                    onSurveySubmit={() => setShowReview(true)}
                 />
             }
         </div>
