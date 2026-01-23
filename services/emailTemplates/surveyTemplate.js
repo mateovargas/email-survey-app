@@ -11,7 +11,7 @@ const emailTemplate = (survey) => {
 
           <div style="margin-top: 30px;">
             <a
-              href="${redirectDomain.domain}/api/surveys/thanks"
+              href="${redirectDomain.domain}/api/surveys/${survey.id}/yes"
               style="
                 display: inline-block;
                 margin-right: 15px;
@@ -27,7 +27,7 @@ const emailTemplate = (survey) => {
             </a>
 
             <a
-              href="${redirectDomain.domain}/api/surveys/thanks"
+              href="${redirectDomain.domain}/api/surveys/${survey.id}/no"
               style="
                 display: inline-block;
                 text-decoration: none;

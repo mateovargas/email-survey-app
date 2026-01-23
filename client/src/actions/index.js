@@ -14,7 +14,6 @@ const handleToken = ({ paymentIntentId }) => async (dispatch) => {
 const submitSurvey = (values) => async (dispatch) => {
     const res = await axios.post('/api/surveys', values);
     dispatch(setAuth(res.data));
-    return res;
 }
 
 export {

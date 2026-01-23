@@ -5,10 +5,6 @@ import createMailerService from "../services/mailerService.js";
 import surveyTemplate from "../services/emailTemplates/surveyTemplate.js";
 
 const surveyRoutes = (app) => {
-    app.get('/api/surveys/thanks', (req, res) => {
-        res.send('Thanks for voting!');
-    });
-
     app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
         try {
             const { title, subject, body, recipients } = req.body;
@@ -42,6 +38,15 @@ const surveyRoutes = (app) => {
                 sendgrid: err?.response?.body || null,
             });
         }
+    });
+
+    app.get('/api/surveys/thanks', (req, res) => {
+        res.send('Thanks for voting!');
+    });
+
+    app.post('/api/surveys/webhooks', (req, res) => {
+        console.log('Received webhook:', req.body);
+        res.send({});
     });
 };
 
