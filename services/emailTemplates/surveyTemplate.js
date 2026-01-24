@@ -8,7 +8,6 @@ const emailTemplate = (survey) => {
           <h3>I'd like your input!</h3>
           <p>Please answer the following question:</p>
           <p>Subject: ${survey.body}</p>
-
           <div style="margin-top: 30px;">
             <a
               href="${redirectDomain.domain}/api/surveys/${survey.id}/yes"
@@ -25,7 +24,6 @@ const emailTemplate = (survey) => {
             >
               Yes
             </a>
-
             <a
               href="${redirectDomain.domain}/api/surveys/${survey.id}/no"
               style="
