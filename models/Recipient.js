@@ -3,7 +3,11 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const recipientSchema = new Schema({
-    email: String,
+    email: {
+        type: String,
+        lowercase: true,
+        trim: true,
+    },
     responded: { type: Boolean, default: false },
 });
 

@@ -5,6 +5,7 @@ import { URL } from "url";
 import requireCredits from "../middleware/requireCredits.js";
 import requireLogin from "../middleware/requireLogin.js";
 import Survey from "../models/Survey.js";
+import { updateOneSurvey } from "../queries/updateOneSurvey.js";
 import createMailerService from "../services/mailerService.js";
 import surveyTemplate from "../services/emailTemplates/surveyTemplate.js";
 
@@ -62,9 +63,16 @@ const surveyRoutes = (app) => {
             }
         }).filter(event => event !== null);
         const uniqueEvents = Array.from(
-            new Map([...events].reverse().map(e => [e.id, e])).values()
-        ).reverse();
-        console.log('Unique events:', uniqueEvents);
+            new Map(
+                events.map(e => [
+                    `${e.surveyId}:${e.email}:${e.choice}`,
+                    e
+                ])
+            ).values()
+        );
+        uniqueEvents.forEach(async ({ email, surveyId, choice }) => {
+            await updateOneSurvey(surveyId, email.trim().toLowerCase(), choice);
+        });
         res.send({});
     });
 };
