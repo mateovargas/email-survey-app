@@ -1,3 +1,7 @@
+import { Path } from "path-parser";
+import { URL } from "url";
+
+
 import requireCredits from "../middleware/requireCredits.js";
 import requireLogin from "../middleware/requireLogin.js";
 import Survey from "../models/Survey.js";
@@ -45,7 +49,22 @@ const surveyRoutes = (app) => {
     });
 
     app.post('/api/surveys/webhooks', (req, res) => {
-        console.log('Received webhook:', req.body);
+        const events = req.body.map(({ email, url }) => {
+            try {
+                const eventPathname = new URL(url).pathname;
+                const path = new Path('/api/surveys/:surveyId/:choice');
+
+                const match = path.test(eventPathname);
+                if (!match) return null;
+                return { email, surveyId: match.surveyId, choice: match.choice };
+            } catch {
+                return null
+            }
+        }).filter(event => event !== null);
+        const uniqueEvents = Array.from(
+            new Map([...events].reverse().map(e => [e.id, e])).values()
+        ).reverse();
+        console.log('Unique events:', uniqueEvents);
         res.send({});
     });
 };
