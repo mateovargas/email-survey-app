@@ -4,6 +4,8 @@ Allows users to create customizable email survey campaigns and record feedback t
 for internal use.
 Built with MERN stack using SendGrid API, Stripe API, NGROK, MaterializeCSS, PassportJS, Zod, and Cypress.
 
+Production App needs to update sendGrid to finalize app.
+
 ## Run Server:
 npm start
 
