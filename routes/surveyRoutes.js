@@ -5,11 +5,17 @@ import { URL } from "url";
 import requireCredits from "../middleware/requireCredits.js";
 import requireLogin from "../middleware/requireLogin.js";
 import Survey from "../models/Survey.js";
-import { updateOneSurvey } from "../queries/updateOneSurvey.js";
+import { updateSurvey } from "../queries/updateSurvey.js";
 import createMailerService from "../services/mailerService.js";
 import surveyTemplate from "../services/emailTemplates/surveyTemplate.js";
 
 const surveyRoutes = (app) => {
+    app.get('/api/surveys', requireLogin, async (req, res) => {
+        const surveys = await Survey.find({ _user: req.user.id })
+            .select({ recipients: false });
+        res.send(surveys);
+    });
+
     app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
         try {
             const { title, subject, body, recipients } = req.body;
@@ -71,7 +77,7 @@ const surveyRoutes = (app) => {
             ).values()
         );
         uniqueEvents.forEach(async ({ email, surveyId, choice }) => {
-            await updateOneSurvey(surveyId, email.trim().toLowerCase(), choice);
+            await updateSurvey(surveyId, email.trim().toLowerCase(), choice);
         });
         res.send({});
     });

@@ -1,6 +1,6 @@
 import Survey from "../models/Survey.js";
 
-export function updateOneSurvey(surveyId, email, choice) {
+export function updateSurvey(surveyId, email, choice) {
     return Survey.updateOne(
         {
             _id: surveyId,
